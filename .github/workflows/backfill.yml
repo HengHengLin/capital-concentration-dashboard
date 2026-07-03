@@ -1,0 +1,48 @@
+name: Backfill History (Run Once)
+
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: '成交额集中度回填天数 (默认180)'
+        required: false
+        default: '180'
+      skip_concentration:
+        description: '跳过成交额集中度（只回填QVIX和两融，几分钟跑完）'
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run backfill
+        working-directory: scripts
+        run: |
+          if [ "${{ inputs.skip_concentration }}" = "true" ]; then
+            python backfill_history.py --days ${{ inputs.days }} --skip-concentration
+          else
+            python backfill_history.py --days ${{ inputs.days }}
+          fi
+
+      - name: Commit history data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "backfill history $(date -u +'%Y-%m-%d')"
+          git push
