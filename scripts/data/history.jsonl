@@ -1920,3 +1920,4 @@
 {"timestamp": "2026-06-24T16:00:00", "sector_turnover_share": null, "top10_turnover_hhi": null, "qvix_kcb_percentile": 51.89, "margin_momentum": null, "score": null, "backfilled": true}
 {"timestamp": "2026-06-25T16:00:00", "sector_turnover_share": null, "top10_turnover_hhi": null, "qvix_kcb_percentile": 51.41, "margin_momentum": null, "score": null, "backfilled": true}
 {"timestamp": "2026-06-26T16:00:00", "sector_turnover_share": null, "top10_turnover_hhi": null, "qvix_kcb_percentile": 53.66, "margin_momentum": null, "score": null, "backfilled": true}
+{"sector_turnover_share": null, "top10_turnover_hhi": null, "qvix_kcb_percentile": 53.66, "margin_momentum": -0.4, "timestamp": "2026-07-03 12:55:51", "score": 45.1}
